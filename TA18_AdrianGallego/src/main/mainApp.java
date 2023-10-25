@@ -16,6 +16,15 @@ public class mainApp {
 
 	public static void main(String[] args) throws SQLException {
 		
+		//Para este proyecto he decidido separar los ejercicios por clases
+	
+		/*Cada ejercicio tiene su package y su clase donde ahi estara el codigo 
+		 * que crea las base de datos, inserta datos y hace el select*/
+		
+		/*Desde el MAIN tan solo creo el objeto y llamo al metodo para que se ejecute
+		 * 
+		 * Solo esta comentada la primera clase, el resto no lo he visto necesario ya que todas funcionan exactamente igual*/
+		
 		TiendaInformatica ej1 = new TiendaInformatica();
 		ej1.ejecutarEj1();
 
