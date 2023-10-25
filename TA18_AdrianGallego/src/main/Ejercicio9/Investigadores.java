@@ -1,11 +1,14 @@
 package main.Ejercicio9;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import main.Colores;
 import main.SQLConnect;
 
 public class Investigadores {
 
-	public void ejecutarEj9() {
+	public void ejecutarEj9() throws SQLException {
 		
 		System.out.println(Colores.ANSI_ORANGE + "\n----- EJERCICIO 9 -----" + Colores.ANSI_RESET);
 
@@ -52,5 +55,52 @@ public class Investigadores {
 						+ "('44444444H', 'E004', '2023-10-23', '2023-10-23'),\r\n"
 						+ "('55555555L', 'E005', '2023-10-24', '2023-10-24')");
 
+		ResultSet rs = SQLConnect.getValues("Ej9TA18_Investigadores","Facultad");
+		ResultSet rs2 = SQLConnect.getValues("Ej9TA18_Investigadores","Investigadores");
+		ResultSet rs3 = SQLConnect.getValues("Ej9TA18_Investigadores","Equipos");
+		ResultSet rs4 = SQLConnect.getValues("Ej9TA18_Investigadores","Reserva");
+
+		imprimirConsultas(rs,rs2,rs3,rs4);
+	}
+
+	private void imprimirConsultas(ResultSet rs, ResultSet rs2, ResultSet rs3, ResultSet rs4) throws SQLException {
+		System.out.println(Colores.ANSI_ORANGE + "\nTABLA FACULTAD" + Colores.ANSI_RESET);
+
+		while (rs.next()) {
+			System.out.println(
+					"Codigo facultad: "+rs.getString("codigo")+" | "+
+					"Nombre facultad: "+rs.getString("nombre"));
+		}
+		
+		System.out.println(Colores.ANSI_ORANGE + "\nTABLA INVESTIGADORES" + Colores.ANSI_RESET);
+
+		while (rs2.next()) {
+			System.out.println(
+					"DNI investigadores: "+rs2.getString("dni")+" | "+
+					"Nombre y apellidos: "+rs2.getString("nom_apels")+" | "+
+					"Codigo facultad: "+rs2.getString("codigo_facultad"));
+		}
+		
+		System.out.println(Colores.ANSI_ORANGE + "\nTABLA EQUIPOS" + Colores.ANSI_RESET);
+
+		while (rs3.next()) {
+			System.out.println(
+					"Numero serie: "+rs3.getString("num_serie")+" | "+
+					"Nombre equipo: "+rs3.getString("nombre")+" | "+
+					"Codigo facultad: "+rs3.getString("codigo_facultad"));
+					
+		}
+		
+		System.out.println(Colores.ANSI_ORANGE + "\nTABLA RESERVA" + Colores.ANSI_RESET);
+
+		
+		while (rs4.next()) {
+			System.out.println(
+					"DNI investigador: "+rs4.getString("dni_investigador")+" | "+
+					"Numero serie: "+rs4.getString("num_serie")+" | "+
+					"Comienzo: "+rs4.getString("comienzo")+" | "+
+					"Fin: "+rs4.getString("fin"));
+		}
+		
 	}
 }

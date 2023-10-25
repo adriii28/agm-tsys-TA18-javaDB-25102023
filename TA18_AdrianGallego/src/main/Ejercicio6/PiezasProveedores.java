@@ -1,11 +1,14 @@
 package main.Ejercicio6;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import main.Colores;
 import main.SQLConnect;
 
 public class PiezasProveedores {
 
-	public void ejecutarEj6() {
+	public void ejecutarEj6() throws SQLException {
 		System.out.println(Colores.ANSI_ORANGE + "\n----- EJERCICIO 6 -----" + Colores.ANSI_RESET);
 
 		SQLConnect.createDB("Ej6TA18_Proveedores");
@@ -33,5 +36,38 @@ public class PiezasProveedores {
 		SQLConnect.insertData("Ej6TA18_Proveedores", "Suministra", " (codigo_pieza, id_proveedor,precio)",
 				"(1, 'P001', 100),(2, 'P002', 50),(3, 'P003', 200),(4, 'P004', 33),(5, 'P005', 15);");
 
+		ResultSet rs = SQLConnect.getValues("Ej6TA18_Proveedores","Piezas");
+		ResultSet rs2 = SQLConnect.getValues("Ej6TA18_Proveedores","Proveedores");
+		ResultSet rs3 = SQLConnect.getValues("Ej6TA18_Proveedores","Suministra");
+
+		imprimirConsultas(rs,rs2,rs3);
+	}
+
+	private void imprimirConsultas(ResultSet rs, ResultSet rs2, ResultSet rs3) throws SQLException {
+		System.out.println(Colores.ANSI_ORANGE + "\nTABLA PIEZAS" + Colores.ANSI_RESET);
+
+		while (rs.next()) {
+			System.out.println(
+					"Codigo pieza: "+rs.getString("codigo")+" | "+
+					"Nombre: "+rs.getString("nombre"));
+		}
+		
+		System.out.println(Colores.ANSI_ORANGE + "\nTABLA PROVEEDORES" + Colores.ANSI_RESET);
+
+		while (rs2.next()) {
+			System.out.println(
+					"Id proveedor: "+rs2.getString("id")+" | "+
+					"Nombre proveedor: "+rs2.getString("nombre"));
+		}
+		
+		System.out.println(Colores.ANSI_ORANGE + "\nTABLA SUMINISTRA" + Colores.ANSI_RESET);
+
+		while (rs3.next()) {
+			System.out.println(
+					"Codigo pieza: "+rs3.getString("codigo_pieza")+" | "+
+					"Id proveedor: "+rs3.getString("id_proveedor")+" | "+
+					"Precio: "+rs3.getString("precio"));
+		}
+		
 	}
 }

@@ -1,11 +1,14 @@
 package main.Ejercicio2;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import main.Colores;
 import main.SQLConnect;
 
 public class Empleados {
 	
-	public void ejecutarEj2() {
+	public void ejecutarEj2() throws SQLException {
 		System.out.println(Colores.ANSI_ORANGE + "\n----- EJERCICIO 2 -----" + Colores.ANSI_RESET);
 
 		SQLConnect.createDB("Ej2TA18_Empleados");
@@ -25,6 +28,31 @@ public class Empleados {
 		SQLConnect.insertData("Ej2TA18_Empleados", "Empleados", " (dni, nombre, apellidos, codigo_departamento)",
 				"('12345678A', 'Adrian', 'Gallego', 1), ('87654321Q', 'Robert', 'Lopez', 2), ('18273645N', 'Manel', 'Castellvi', 3), ('11111111V', 'Pepe', 'Perez', 4), ('22222222N', 'Paco', 'Jimenez', 5)");
 
+		ResultSet rs = SQLConnect.getValues("Ej2TA18_Empleados","Departamentos");
+		ResultSet rs2 = SQLConnect.getValues("Ej2TA18_Empleados","Empleados");
+		imprimirConsultas(rs,rs2);
+	}
+
+	private void imprimirConsultas(ResultSet rs, ResultSet rs2) throws SQLException {
+		System.out.println(Colores.ANSI_ORANGE + "\nTABLA DEPARTAMENTOS" + Colores.ANSI_RESET);
+
+		while (rs.next()) {
+			System.out.println(
+					"Codigo: "+rs.getString("codigo")+" | "+
+					"Departamento: "+rs.getString("nombre")+" | "+
+					"Presupuesto: "+rs.getString("presupuesto"));
+		}
+		
+		System.out.println(Colores.ANSI_ORANGE + "\nTABLA EMPLEADOS" + Colores.ANSI_RESET);
+
+		while (rs2.next()) {
+			System.out.println(
+					"DNI: "+rs2.getString("dni")+" | "+
+					"Nombre: "+rs2.getString("nombre")+" | "+
+					"Precio: "+rs2.getString("apellidos")+" | "+
+					"Codigo Departamento: "+rs2.getString("codigo_departamento"));
+		}
+		
 	}
 
 }

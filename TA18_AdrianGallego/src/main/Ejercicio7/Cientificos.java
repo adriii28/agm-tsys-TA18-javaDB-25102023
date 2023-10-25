@@ -1,11 +1,14 @@
 package main.Ejercicio7;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import main.Colores;
 import main.SQLConnect;
 
 public class Cientificos {
 
-	public void ejecutarEj7() {
+	public void ejecutarEj7() throws SQLException {
 		
 		System.out.println(Colores.ANSI_ORANGE + "\n----- EJERCICIO 7 -----" + Colores.ANSI_RESET);
 
@@ -33,5 +36,39 @@ public class Cientificos {
 				"('11111111V', 'P001'),\r\n" + "('22222222B', 'P002'),\r\n" + "('33333333N', 'P003'),\r\n"
 						+ "('44444444A', 'P004'),\r\n" + "('55555555S', 'P005');");
 
+		ResultSet rs = SQLConnect.getValues("Ej7TA18_Cientificos","Cientificos");
+		ResultSet rs2 = SQLConnect.getValues("Ej7TA18_Cientificos","Proyecto");
+		ResultSet rs3 = SQLConnect.getValues("Ej7TA18_Cientificos","AsignadoA");
+
+		imprimirConsultas(rs,rs2,rs3);
+	}
+
+	private void imprimirConsultas(ResultSet rs, ResultSet rs2, ResultSet rs3) throws SQLException {
+		System.out.println(Colores.ANSI_ORANGE + "\nTABLA CIENTIFICOS" + Colores.ANSI_RESET);
+
+		while (rs.next()) {
+			System.out.println(
+					"DNI cientifico: "+rs.getString("dni")+" | "+
+					"Nombre y apellidos: "+rs.getString("nom_apels"));
+		}
+		
+		System.out.println(Colores.ANSI_ORANGE + "\nTABLA PROYECTO" + Colores.ANSI_RESET);
+
+		while (rs2.next()) {
+			System.out.println(
+					"Id proyecto: "+rs2.getString("id")+" | "+
+					"Nombre proyecto: "+rs2.getString("nombre")+" | "+
+					"Horas: "+rs2.getString("horas"));
+		}
+		
+		System.out.println(Colores.ANSI_ORANGE + "\nTABLA ASIGNADO A" + Colores.ANSI_RESET);
+
+		while (rs3.next()) {
+			System.out.println(
+					"DNI Cientifico: "+rs3.getString("cientifico")+" | "+
+					"Id Proyecto: "+rs3.getString("proyecto"));
+					
+		}
+		
 	}
 }

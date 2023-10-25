@@ -2,6 +2,7 @@ package main;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -91,4 +92,29 @@ public class SQLConnect {
 		}
 
 	}
+	
+	public static ResultSet getValues(String db, String table_name) {
+		Connection conexion = ConexionDB();
+		
+		try {
+			String Querydb = "USE " + db + ";";
+			Statement stdb = conexion.createStatement();
+			stdb.executeUpdate(Querydb);
+			
+			String Query = "SELECT * FROM " + table_name;
+			Statement st = conexion.createStatement();
+			ResultSet resultSet;
+			resultSet = st.executeQuery(Query);
+			
+			return resultSet;
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("Error en la adquisicion de datos");
+		}
+		return null;
+		
+	}
+	
+	
 }

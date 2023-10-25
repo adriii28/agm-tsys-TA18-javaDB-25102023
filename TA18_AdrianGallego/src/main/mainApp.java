@@ -1,5 +1,7 @@
 package main;
 
+import java.sql.SQLException;
+
 import main.Ejercicio1.TiendaInformatica;
 import main.Ejercicio2.Empleados;
 import main.Ejercicio3.Almacenes;
@@ -12,7 +14,7 @@ import main.Ejercicio9.Investigadores;
 
 public class mainApp {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		
 		TiendaInformatica ej1 = new TiendaInformatica();
 		ej1.ejecutarEj1();

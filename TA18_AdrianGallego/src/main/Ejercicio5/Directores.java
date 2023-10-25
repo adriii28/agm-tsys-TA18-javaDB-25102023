@@ -1,11 +1,14 @@
 package main.Ejercicio5;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import main.Colores;
 import main.SQLConnect;
 
 public class Directores {
 
-	public void ejecutarEj5() {
+	public void ejecutarEj5() throws SQLException {
 		System.out.println(Colores.ANSI_ORANGE + "\n----- EJERCICIO 5 -----" + Colores.ANSI_RESET);
 
 		SQLConnect.createDB("Ej5TA18_Directores");
@@ -25,6 +28,30 @@ public class Directores {
 
 		SQLConnect.insertData("Ej5TA18_Directores", "Directores", " (dni, nom_apels, dni_jefe, codigo_despacho)",
 				"('1111111A', 'Adrian Gallego', null, 1), ('2222222B', 'Robert Lopez', '1111111A', 2),('3333333C', 'Manel Castellvi', '1111111A', 3),('4444444D', 'Luis Gonzalez', '1111111A', 4),('5555555T', 'Pedro Pascal', '1111111A', 5);");
+		
+		ResultSet rs = SQLConnect.getValues("Ej5TA18_Directores","Despachos");
+		ResultSet rs2 = SQLConnect.getValues("Ej5TA18_Directores","Directores");
+		imprimirConsultas(rs,rs2);
+	}
 
+	private void imprimirConsultas(ResultSet rs, ResultSet rs2) throws SQLException {
+		System.out.println(Colores.ANSI_ORANGE + "\nTABLA DESPACHOS" + Colores.ANSI_RESET);
+
+		while (rs.next()) {
+			System.out.println(
+					"Numero despacho: "+rs.getString("numero")+" | "+
+					"Capacidad: "+rs.getString("capacidad"));
+		}
+		
+		System.out.println(Colores.ANSI_ORANGE + "\nTABLA DIRECTORES" + Colores.ANSI_RESET);
+
+		while (rs2.next()) {
+			System.out.println(
+					"DNI: "+rs2.getString("dni")+" | "+
+					"Nombre y apellidos: "+rs2.getString("nom_apels")+" | "+
+					"DNI jefe: "+rs2.getString("dni_jefe")+" | "+
+					"Codigo Despacho: "+rs2.getString("codigo_despacho"));
+		}
+		
 	}
 }
